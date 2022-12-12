@@ -1,4 +1,4 @@
-﻿namespace Database.DataManager
+﻿namespace DatabaseManager
 {
     public class DataManagerException : Exception
     {

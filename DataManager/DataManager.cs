@@ -1,4 +1,4 @@
-﻿namespace Database.DataManager
+﻿namespace DatabaseManager
 {
     using System;
     using System.Collections.Generic;
@@ -10,14 +10,14 @@
     /// <summary>
     /// Sync part of DataManager.
     /// </summary>
-    public partial class DataManager : IDisposable
+    public partial class DBManager : IDisposable
     {
         #region Properties
 
         /// <summary>
         /// Received connection string.
         /// </summary>
-        private readonly string ConnectionString;
+        public readonly string ConnectionString;
 
         /// <summary>
         /// Execution timeout.
@@ -27,17 +27,17 @@
         /// <summary>
         /// Current connection.
         /// </summary>
-        private readonly SqlConnection Connection;
+        public readonly SqlConnection Connection;
         #endregion
 
         #region .ctors
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="DataManager"/> class.
+        /// Initializes a new instance of the <see cref="DBManager"/> class.
         /// </summary>
         /// <param name="connectionString">Connection string.</param>
         /// <param name="timeout">Execution timeout.</param>
-        public DataManager(string connectionString, int timeout = 120)
+        public DBManager(string connectionString, int timeout = 120)
         {
             ConnectionString = connectionString;
             Connection = new SqlConnection(ConnectionString);
@@ -46,11 +46,11 @@
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="DataManager"/> class with existing connection.
+        /// Initializes a new instance of the <see cref="DBManager"/> class with existing connection.
         /// </summary>
         /// <param name="connection">Opened connection.</param>
         /// <param name="timeout">Execution timeout.</param>
-        public DataManager(SqlConnection connection, int timeout = 120)
+        public DBManager(SqlConnection connection, int timeout = 120)
         {
             Connection = connection;
             ConnectionString = connection.ConnectionString;
@@ -85,9 +85,9 @@
                     PropertyInfo[] parameterProperties = parameters.GetType().GetProperties();
                     if (parameterProperties != null)
                     {
-                        foreach (var parameter in parameterProperties)
+                        foreach (PropertyInfo parameter in parameterProperties)
                         {
-                            var parameterValue = parameter.GetValue(parameters);
+                            object? parameterValue = parameter.GetValue(parameters);
                             cmd.Parameters.AddWithValue(parameter.Name, parameterValue ?? DBNull.Value);
                         }
                     }
@@ -219,9 +219,9 @@
                     PropertyInfo[] parameterProperties = parameters.GetType().GetProperties();
                     if (parameterProperties != null)
                     {
-                        foreach (var parameter in parameterProperties)
+                        foreach (PropertyInfo parameter in parameterProperties)
                         {
-                            var parameterValue = parameter.GetValue(parameters);
+                            object? parameterValue = parameter.GetValue(parameters);
                             cmd.Parameters.AddWithValue(parameter.Name, parameterValue ?? DBNull.Value);
                         }
                     }
@@ -300,9 +300,9 @@
                     PropertyInfo[] parameterProperties = parameters.GetType().GetProperties();
                     if (parameterProperties != null)
                     {
-                        foreach (var parameter in parameterProperties)
+                        foreach (PropertyInfo parameter in parameterProperties)
                         {
-                            var parameterValue = parameter.GetValue(parameters);
+                            object? parameterValue = parameter.GetValue(parameters);
                             cmd.Parameters.AddWithValue(parameter.Name, parameterValue ?? DBNull.Value);
                         }
                     }
@@ -391,9 +391,9 @@
                     PropertyInfo[] parameterProperties = parameters.GetType().GetProperties();
                     if (parameterProperties != null)
                     {
-                        foreach (var parameter in parameterProperties)
+                        foreach (PropertyInfo parameter in parameterProperties)
                         {
-                            var parameterValue = parameter.GetValue(parameters);
+                            object? parameterValue = parameter.GetValue(parameters);
                             cmd.Parameters.AddWithValue(parameter.Name, parameterValue ?? DBNull.Value);
                         }
                     }
@@ -531,9 +531,9 @@
                     PropertyInfo[] parameterProperties = parameters.GetType().GetProperties();
                     if (parameterProperties != null)
                     {
-                        foreach (var parameter in parameterProperties)
+                        foreach (PropertyInfo parameter in parameterProperties)
                         {
-                            var parameterValue = parameter.GetValue(parameters);
+                            object? parameterValue = parameter.GetValue(parameters);
                             cmd.Parameters.AddWithValue(parameter.Name, parameterValue ?? DBNull.Value);
                         }
                     }
@@ -612,9 +612,9 @@
                     PropertyInfo[] parameterProperties = parameters.GetType().GetProperties();
                     if (parameterProperties != null)
                     {
-                        foreach (var parameter in parameterProperties)
+                        foreach (PropertyInfo parameter in parameterProperties)
                         {
-                            var parameterValue = parameter.GetValue(parameters);
+                            object? parameterValue = parameter.GetValue(parameters);
                             cmd.Parameters.AddWithValue(parameter.Name, parameterValue ?? DBNull.Value);
                         }
                     }
@@ -684,9 +684,9 @@
                     PropertyInfo[] parameterProperties = parameters.GetType().GetProperties();
                     if (parameterProperties != null)
                     {
-                        foreach (var parameter in parameterProperties)
+                        foreach (PropertyInfo parameter in parameterProperties)
                         {
-                            var parameterValue = parameter.GetValue(parameters);
+                            object? parameterValue = parameter.GetValue(parameters);
                             cmd.Parameters.AddWithValue(parameter.Name, parameterValue ?? DBNull.Value);
                         }
                     }
@@ -837,7 +837,7 @@
             using (SqlCommand cmd = new(sql, Connection))
             {
                 cmd.CommandTimeout = TimeOut;
-                foreach (var item in parameters)
+                foreach (KeyValuePair<string, object> item in parameters)
                 {
                     cmd.Parameters.AddWithValue(item.Key, item.Value);
                 }
@@ -989,7 +989,7 @@
             using (SqlCommand cmd = new(sql, Connection))
             {
                 cmd.CommandTimeout = TimeOut;
-                foreach (var item in parameters)
+                foreach (KeyValuePair<string, object> item in parameters)
                 {
                     cmd.Parameters.AddWithValue(item.Key, item.Value);
                 }
@@ -1078,7 +1078,7 @@
             using (SqlCommand cmd = new(checkSql, Connection))
             {
                 cmd.CommandTimeout = TimeOut;
-                foreach (var item in parameters)
+                foreach (KeyValuePair<string, object> item in parameters)
                 {
                     cmd.Parameters.AddWithValue(item.Key, item.Value);
                 }
@@ -1107,7 +1107,7 @@
         public int SetModel(object model) => SetModel(model, false);
         #endregion
 
-        ~DataManager() =>
+        ~DBManager() =>
             Dispose();
     }
 }

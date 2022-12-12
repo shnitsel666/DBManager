@@ -1,4 +1,4 @@
-﻿namespace Database.DataManager
+﻿namespace DatabaseManager
 {
     /// <summary>
     /// Marks colummn as a primary key

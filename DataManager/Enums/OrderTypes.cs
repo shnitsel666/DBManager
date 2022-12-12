@@ -1,9 +1,9 @@
-﻿namespace Database.DataManager
+﻿namespace DatabaseManager
 {
     public enum OrderTypes
     {
         ASC,
         DESC,
-        NONE
+        NONE,
     }
 }

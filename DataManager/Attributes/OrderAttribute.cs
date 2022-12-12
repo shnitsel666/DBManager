@@ -1,4 +1,4 @@
-﻿namespace Database.DataManager
+﻿namespace DatabaseManager
 {    
     /// <summary>
     /// Attribute for sortable column in case of using SELECT FROM {N} TAKE {M}

@@ -1,4 +1,4 @@
-﻿namespace Database.DataManager
+﻿namespace DatabaseManager
 {
     using System;
     using System.Collections;
@@ -11,9 +11,9 @@
     using System.Threading.Tasks;
 
     /// <summary>
-    /// Common methods for DataManager.
+    /// Common methods for DBManager.
     /// </summary>
-    public partial class DataManager : IDisposable
+    public partial class DBManager : IDisposable
     {
         #region SetPropertyOrField()
 
