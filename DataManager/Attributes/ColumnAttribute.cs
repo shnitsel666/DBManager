@@ -1,4 +1,4 @@
-﻿namespace Database.DataManager
+﻿namespace DatabaseManager
 {
     [AttributeUsage(AttributeTargets.Field | AttributeTargets.Property)]
     public class ColumnAttribute: Attribute

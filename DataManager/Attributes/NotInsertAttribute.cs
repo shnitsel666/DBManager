@@ -1,4 +1,4 @@
-﻿namespace Database.DataManager
+﻿namespace DatabaseManager
 {
     /// <summary>
     /// No insertable field

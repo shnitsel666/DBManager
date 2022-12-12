@@ -1,4 +1,4 @@
-﻿namespace Database.DataManager
+﻿namespace DatabaseManager
 {
     using System;
     using System.Collections.Generic;
@@ -10,7 +10,7 @@
     /// <summary>
     /// Async part of DataManager.
     /// </summary>
-    public partial class DataManager : IDisposable
+    public partial class DBManager : IDisposable
     {
         #region GetListAsync<T>(sql, isStoredProcedure, parameters)
 
@@ -39,9 +39,9 @@
                     PropertyInfo[] parameterProperties = parameters.GetType().GetProperties();
                     if (parameterProperties != null)
                     {
-                        foreach (var parameter in parameterProperties)
+                        foreach (PropertyInfo parameter in parameterProperties)
                         {
-                            var parameterValue = parameter.GetValue(parameters);
+                            object? parameterValue = parameter.GetValue(parameters);
                             cmd.Parameters.AddWithValue(parameter.Name, parameterValue ?? DBNull.Value);
                         }
                     }
@@ -173,9 +173,9 @@
                     PropertyInfo[] parameterProperties = parameters.GetType().GetProperties();
                     if (parameterProperties != null)
                     {
-                        foreach (var parameter in parameterProperties)
+                        foreach (PropertyInfo parameter in parameterProperties)
                         {
-                            var parameterValue = parameter.GetValue(parameters);
+                            object? parameterValue = parameter.GetValue(parameters);
                             cmd.Parameters.AddWithValue(parameter.Name, parameterValue ?? DBNull.Value);
                         }
                     }
@@ -254,9 +254,9 @@
                     PropertyInfo[] parameterProperties = parameters.GetType().GetProperties();
                     if (parameterProperties != null)
                     {
-                        foreach (var parameter in parameterProperties)
+                        foreach (PropertyInfo parameter in parameterProperties)
                         {
-                            var parameterValue = parameter.GetValue(parameters);
+                            object? parameterValue = parameter.GetValue(parameters);
                             cmd.Parameters.AddWithValue(parameter.Name, parameterValue ?? DBNull.Value);
                         }
                     }
@@ -345,9 +345,9 @@
                     PropertyInfo[] parameterProperties = parameters.GetType().GetProperties();
                     if (parameterProperties != null)
                     {
-                        foreach (var parameter in parameterProperties)
+                        foreach (PropertyInfo parameter in parameterProperties)
                         {
-                            var parameterValue = parameter.GetValue(parameters);
+                            object? parameterValue = parameter.GetValue(parameters);
                             cmd.Parameters.AddWithValue(parameter.Name, parameterValue ?? DBNull.Value);
                         }
                     }
@@ -485,9 +485,9 @@
                     PropertyInfo[] parameterProperties = parameters.GetType().GetProperties();
                     if (parameterProperties != null)
                     {
-                        foreach (var parameter in parameterProperties)
+                        foreach (PropertyInfo parameter in parameterProperties)
                         {
-                            var parameterValue = parameter.GetValue(parameters);
+                            object? parameterValue = parameter.GetValue(parameters);
                             cmd.Parameters.AddWithValue(parameter.Name, parameterValue ?? DBNull.Value);
                         }
                     }
@@ -566,9 +566,9 @@
                     PropertyInfo[] parameterProperties = parameters.GetType().GetProperties();
                     if (parameterProperties != null)
                     {
-                        foreach (var parameter in parameterProperties)
+                        foreach (PropertyInfo parameter in parameterProperties)
                         {
-                            var parameterValue = parameter.GetValue(parameters);
+                            object? parameterValue = parameter.GetValue(parameters);
                             cmd.Parameters.AddWithValue(parameter.Name, parameterValue ?? DBNull.Value);
                         }
                     }
@@ -638,9 +638,9 @@
                     PropertyInfo[] parameterProperties = parameters.GetType().GetProperties();
                     if (parameterProperties != null)
                     {
-                        foreach (var parameter in parameterProperties)
+                        foreach (PropertyInfo parameter in parameterProperties)
                         {
-                            var parameterValue = parameter.GetValue(parameters);
+                            object? parameterValue = parameter.GetValue(parameters);
                             cmd.Parameters.AddWithValue(parameter.Name, parameterValue ?? DBNull.Value);
                         }
                     }
@@ -791,7 +791,7 @@
             using (SqlCommand cmd = new(sql, Connection))
             {
                 cmd.CommandTimeout = TimeOut;
-                foreach (var item in parameters)
+                foreach (KeyValuePair<string, object> item in parameters)
                 {
                     cmd.Parameters.AddWithValue(item.Key, item.Value);
                 }
@@ -943,7 +943,7 @@
             using (SqlCommand cmd = new(sql, Connection))
             {
                 cmd.CommandTimeout = TimeOut;
-                foreach (var item in parameters)
+                foreach (KeyValuePair<string, object> item in parameters)
                 {
                     cmd.Parameters.AddWithValue(item.Key, item.Value);
                 }
@@ -1032,7 +1032,7 @@
             using (SqlCommand cmd = new(checkSql, Connection))
             {
                 cmd.CommandTimeout = TimeOut;
-                foreach (var item in parameters)
+                foreach (KeyValuePair<string, object> item in parameters)
                 {
                     cmd.Parameters.AddWithValue(item.Key, item.Value);
                 }
