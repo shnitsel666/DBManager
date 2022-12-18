@@ -1,5 +1,6 @@
 ﻿namespace DatabaseManager
 {
+    using Microsoft.Data.SqlClient;
     using System;
     using System.Collections;
     using System.Collections.Generic;
@@ -150,7 +151,7 @@
             }
             else
             {
-                throw new DataManagerException("Неизвестный тип данных " + propFieldType.FullName);
+                throw new DBManagerException("Неизвестный тип данных " + propFieldType.FullName);
             }
         }
         #endregion
@@ -174,7 +175,7 @@
                 a.GetType() == typeof(TableAttribute));
             if (tableAttribute == null)
             {
-                throw new DataManagerException("У класса " + modelType.FullName + "не установлен атрибут [Table]");
+                throw new DBManagerException("У класса " + modelType.FullName + "не установлен атрибут [Table]");
             }
 
             if (from != null)
@@ -198,7 +199,7 @@
                     .ToArray();
                 if (fieldsAndProps == null || fieldsAndProps.Length <= 0)
                 {
-                    throw new DataManagerException("Для использования FROM TAKE в выборке вы должны указать атрибут [Order] на одном из свойств класса");
+                    throw new DBManagerException("Для использования FROM TAKE в выборке вы должны указать атрибут [Order] на одном из свойств класса");
                 }
 
                 string? overColumn = fieldsAndProps?.FirstOrDefault()?.Name;
@@ -376,6 +377,22 @@
         }
 
         public static DataTable ConvertListToDataTable<T>(List<T> data) => ConvertListToDataTable(data, null);
+        #endregion
+
+        #region ReaderContainsColumn(reader, columnName)
+        private bool ReaderContainsColumn(SqlDataReader reader, string columnName)
+        {
+            for (int i = 0; i < reader.FieldCount; i++)
+            {
+                if (reader.GetName(i) == columnName)
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
         #endregion
 
         public void Dispose()

@@ -1,4 +1,4 @@
-namespace DataManagerTest
+namespace DBManagerTest
 {
     using DatabaseManager;
 

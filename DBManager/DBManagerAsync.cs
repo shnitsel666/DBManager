@@ -83,7 +83,14 @@
                                     object? readValue = null;
                                     try
                                     {
-                                        readValue = reader[columnName];
+                                        if (ReaderContainsColumn(reader, columnName))
+                                        {
+                                            readValue = reader[columnName];
+                                        }
+                                        else
+                                        {
+                                            continue;
+                                        }
                                     }
                                     catch (Exception)
                                     {
@@ -394,7 +401,14 @@
                                 object? readValue = null;
                                 try
                                 {
-                                    readValue = reader[columnName];
+                                    if (ReaderContainsColumn(reader, columnName))
+                                    {
+                                        readValue = reader[columnName];
+                                    }
+                                    else
+                                    {
+                                        continue;
+                                    }
                                 }
                                 catch (Exception)
                                 {
