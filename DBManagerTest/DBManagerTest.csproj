@@ -15,7 +15,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\DataManager\DataManager.csproj" />
+    <ProjectReference Include="..\DBManager\DBManager.csproj" />
   </ItemGroup>
 
 </Project>

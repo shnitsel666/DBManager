@@ -1,13 +1,13 @@
-﻿using Database.DataManager;
+﻿using Database.DBManager;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DataManagerTest.TestModels
+namespace DBManagerTest.TestModels
 {
-    [Table("DataManagerTest")]
+    [Table("DBManagerTest")]
     public class TestModel
     {
         [NotUpdate]
